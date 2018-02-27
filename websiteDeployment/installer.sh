@@ -19,4 +19,5 @@ if [ $? == 0 ]
 then 
   port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
   sudo docker run -d -p $port:80 websiteoverview
+  
 fi
