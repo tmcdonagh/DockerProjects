@@ -1,4 +1,5 @@
 #!/bin/bash
+# Asks whether or not to install
 dialog \
   --backtitle "WebsiteOverview Installer" \
   --title "Installation" \
@@ -8,6 +9,8 @@ if [ $? == 0 ]
 then
   sudo docker build -t websiteoverview .
 fi
+
+# Asks whether or not to run previously installed container
 dialog \
   --backtitle "WebsiteOverview Installer" \
   --title "Installation" \
