@@ -4,10 +4,11 @@ dialog \
   --backtitle "WebsiteOverview Installer" \
   --title "Installation" \
   --yesno "\nInstall WebsiteOverview?" 10 30
-echo $?  
 if [ $? == 0 ]
 then
   sudo docker build -t websiteoverview .
+else
+  exit 1
 fi
 
 # Asks whether or not to run previously installed container
@@ -19,5 +20,4 @@ if [ $? == 0 ]
 then 
   port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
   sudo docker run -d -p $port:80 websiteoverview
-  
 fi
