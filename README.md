@@ -1,10 +1,5 @@
 # DockerProjects
 
-Installs WebsiteOverview from github a into a docker container
+Projects to Learn Docker Containerization
 
-# Dependencies
-
--docker
-
--dialog
 
