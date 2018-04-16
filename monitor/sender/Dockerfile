@@ -3,12 +3,10 @@ FROM php:7.0-apache
 RUN apt update -qq 
 RUN apt -qq install -y sysstat dialog tmux
 
-WORKDIR /monitor
+WORKDIR /sender
 
-ADD . /monitor
+ADD . /sender
 
-RUN chmod +x /monitor/cpu.sh && chmod +x /monitor/tmux.sh
-
-#RUN bash -c /monitor/cpu.sh
+RUN chmod +x /sender/cpu.sh && chmod +x /sender/tmux.sh
 
 EXPOSE 80
