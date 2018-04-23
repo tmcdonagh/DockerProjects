@@ -6,14 +6,15 @@ RUN apt update -qq
 #RUN apt -qq install -y mariadb-client mariadb-server
 #RUN apt -qq install -y php-mysql
 #RUN DEBIAN_FRONTEND=noninteractive apt install -y mysql-server
-RUN DEBIAN_FRONTEND=noninteractive apt install -y mysql-server mysql-common mysql-client
+#RUN DEBIAN_FRONTEND=noninteractive apt install -y mysql-server mysql-common mysql-client
 
 #mariadb-client mariadb-server
 
 WORKDIR /receiver
 
 ADD . /receiver
+ADD webInterface/ /var/www/html
 
-#RUN chmod +x /monitor/cpu.sh && chmod +x /monitor/tmux.sh
+#RUN chmod +x /receiver/cpu.sh && chmod +x /receiver/tmux.sh
 
 EXPOSE 80
