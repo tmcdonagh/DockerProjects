@@ -29,7 +29,8 @@ window.onload = function () {
     count = count || 1;
     // count is number of times loop runs to generate random dataPoints.
     for (var j = 0; j < count; j++) { 
-      yVal = yVal + Math.round(5 + Math.random() *(-5-5));
+      //yVal = yVal + Math.round(5 + Math.random() *(-5-5));
+      yVal = localStorage.getItem('0') || 0;
       dps.push({
         x: xVal,
         y: yVal
