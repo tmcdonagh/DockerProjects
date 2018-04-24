@@ -8,13 +8,15 @@ window.onload = function () {
   var chart = new CanvasJS.Chart("chartContainer", {
     exportEnabled: true,
     title :{
-      text: "Dynamic Spline Chart"
+      text: "Dell R710"
     },
     axisY: {
-      includeZero: false
+      includeZero: false,
+      viewportMaximum: 105,
+      viewportMinimum: 0
     },
     data: [{
-      type: "spline",
+      type: "line",
       markerSize: 0,
       dataPoints: dps 
     }]
@@ -23,14 +25,14 @@ window.onload = function () {
   var xVal = 0;
   var yVal = 100;
   var updateInterval = 1000;
-  var dataLength = 50; // number of dataPoints visible at any point
+  var dataLength = 200; // number of dataPoints visible at any point
 
   var updateChart = function (count) {
     count = count || 1;
     // count is number of times loop runs to generate random dataPoints.
     for (var j = 0; j < count; j++) { 
-      //yVal = yVal + Math.round(5 + Math.random() *(-5-5));
-      yVal = localStorage.getItem('0') || 0;
+      load_js();
+      yVal = cores.core1;
       dps.push({
         x: xVal,
         y: yVal
@@ -45,6 +47,14 @@ window.onload = function () {
 
   updateChart(dataLength); 
   setInterval(function(){ updateChart() }, updateInterval); 
+  function load_js(){
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'info.js';
+    head.appendChild(script);
+  }
+
 
 }
     </script>
@@ -52,5 +62,6 @@ window.onload = function () {
   <body>
     <div id="chartContainer" style="height: 370px; width:100%;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
+    <script type="text/javascript" src="info.js"></script>
   </body>
 </html>

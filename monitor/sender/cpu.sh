@@ -4,13 +4,14 @@ num="0"
 while : 
 do
   perc=($(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print $3}'))
+  echo "var cores = {" >> $out;
   for i in "${perc[@]}"
   do
-
-    echo "localStorage.setItem('$num', $i);" >> $out
     num=$((num+1))
-    # echo "$i" >> $out
+    #echo "$i" >> $out
+    echo "core$num : "$i"," >> $out;
   done
+  echo "};" >> $out
   sleep 2
   echo "" > $out
   num="0"

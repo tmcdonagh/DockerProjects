@@ -3,9 +3,12 @@
 while :
 do
   # Grabs data from sender at localhost
-  wget localhost:8082/info.js
+  wget 10.0.0.84:8082/info.js
 
-  node info.js
+  #rm /var/www/html/info.js
+
+  mv info.js /var/www/html/
+
 
   sleep 2
 
