@@ -32,7 +32,8 @@ window.onload = function () {
     // count is number of times loop runs to generate random dataPoints.
     for (var j = 0; j < count; j++) { 
       load_js();
-      yVal = cores.core1;
+      //yVal = cores.core1 || 0; 
+      yVal = cores.coreAvg || 0;
       dps.push({
         x: xVal,
         y: yVal
