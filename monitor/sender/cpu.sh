@@ -1,9 +1,9 @@
 #!/bin/bash
 out="/var/www/html/info.js"
-num="0"
-avg="0.00"
 while : 
 do
+  avg="0.00"
+  num="0"
   perc=($(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print $3}'))
   echo "var cores = {" >> $out;
   totalCpu="0"
@@ -14,10 +14,9 @@ do
     avg=$(echo "$avg+$i" | bc)
     totalCpu=$((totalCpu+1))
   done
-  avg=$(echo "$avg/$totalCpu" | bc)
-  echo "coreAvg : "$avg"," >> $out;
+  avg=$(echo "$avg/$totalCpu" | bc -l)
+  echo "coreAvg : "$avg"," >> $out
   echo "};" >> $out
   sleep 2
   echo "" > $out
-  num="0"
 done

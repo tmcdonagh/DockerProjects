@@ -14,7 +14,8 @@ dialog \
   --yesno "\nRun Sender?" 10 30
 if [ $? == 0 ]
 then 
-  port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
+  #port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
+  port="8082"
   sudo docker run --name=sender --restart=always -d -p $port:80 sender
   sudo docker exec sender /sender/tmux.sh
 

@@ -1,7 +1,10 @@
 #!/bin/bash
-perc=($(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print $3}'))
-for j in "${perc[@]}"
-do
-  
-avg=$(echo "1/1" | bc)
+avg="1.00"
+i="1.01"
+#while : 
+#do
+  #avg=$(echo "$avg+$i" | bc)
+#done
+avg=$(echo "$avg/$i" | bc )
+
 echo $avg

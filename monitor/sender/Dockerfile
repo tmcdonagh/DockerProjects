@@ -1,7 +1,7 @@
 FROM php:7.0-apache
 
 RUN apt update -qq 
-RUN apt -qq install -y sysstat dialog tmux
+RUN apt -qq install -y sysstat dialog tmux bc
 
 WORKDIR /sender
 

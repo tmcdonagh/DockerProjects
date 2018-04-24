@@ -14,7 +14,8 @@ dialog \
   --yesno "\nRun Receiver?" 10 30
 if [ $? == 0 ]
 then 
-  port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
+  #port=$(dialog --inputbox "What port should 80 be set to?" 10 25 --output-fd 1)
+  port="8083"
   sudo docker run --name=receiver --restart=always -d -p $port:80 receiver
   sudo docker exec receiver /receiver/tmux.sh
 
