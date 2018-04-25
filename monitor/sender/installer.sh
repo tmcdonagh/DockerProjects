@@ -13,7 +13,7 @@ then
     then
       #echo "id=$(sudo dmidecode -t 4 | grep ID | sed 's/.*ID://;s/ //g')" > config.sh
       echo "id=$(hostid)" > config.sh
-      echo "name="$name"" >> config.sh
+      echo "name='"$name"'" >> config.sh
       break
     fi
   done

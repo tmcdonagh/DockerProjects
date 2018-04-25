@@ -1,14 +1,15 @@
 
+  <!DOCTYPE HTML>
     <html>
       <head>
         <script>
 
     window.onload = function() {
       var dps = [];
-      var chart = new CanvasJS.Chart(chartContainer, {
+      var chart = new CanvasJS.Chart('chartContainer', {
         exportEnabled: true,
         title :{
-          text: Dell
+          text: 'Dell R710'
         },
         axisY: {
           includeZero: false,
@@ -16,7 +17,7 @@
           viewportMinimum: 0
         },
         data: [{
-          type: line,
+          type: 'line',
           markerSize: 0,
           dataPoints: dps
         }]
@@ -49,16 +50,21 @@
       setInterval(function(){ updateChart() }, updateInterval);
       function load_js(){
         var head = document.getElementsByTagName('head')[0];
-        var script.type = 'text/javascript';
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '10.0.0.95.js';
         head.appendChild(script);
       }
     }
-      <script type=text/javascript src=10.0.0.84.js></script>
-    </body>
-  </html>
 
 
-  <script type=text/javascript src=10.0.0.84.js></script>
+</script>
+  </head>
+  <body>
+<div id="chartContainer" style="height: 370px; width:100%"></div>
+<script src='https://canvasjs.com/assets/script/canvasjs.min.js'></script>
+
+<script type=text/javascript src=10.0.0.84.js></script>
   
 </body>
 </html>

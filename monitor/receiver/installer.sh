@@ -17,10 +17,8 @@ then
     if [ $? == 0 ]
     then
       echo "wget $addr:8082/info.js" >> updater.sh
-      #echo "wget -N $addr:8082/config.sh" >> updater.sh # need to move to native file
       wget -N $addr:8082/config.sh
       mv config.sh config$addr.sh 
-      #echo "mv config.sh config$addr.sh" >> updater.sh
       echo "mv info.js /var/www/html/$addr"$num".js" >> updater.sh
       addrList+=("$addr")
       dialog \
@@ -37,6 +35,7 @@ then
   # Builds webInterface/index.html based on previous data
 
   echo "
+  <!DOCTYPE HTML>
     <html>
       <head>
         <script>" > webInterface/index.html
@@ -46,10 +45,10 @@ then
     echo "
     window.onload = function() {
       var dps = [];
-      var chart = new CanvasJS.Chart("chartContainer", {
+      var chart = new CanvasJS.Chart('"chartContainer"', {
         exportEnabled: true,
         title :{
-          text: "$name"
+          text: '"$name"'
         },
         axisY: {
           includeZero: false,
@@ -57,7 +56,7 @@ then
           viewportMinimum: 0
         },
         data: [{
-          type: "line",
+          type: '"line"',
           markerSize: 0,
           dataPoints: dps
         }]
@@ -90,22 +89,28 @@ then
       setInterval(function(){ updateChart() }, updateInterval);
       function load_js(){
         var head = document.getElementsByTagName('head')[0];
-        var script.type = 'text/javascript';
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '$addr.js';
         head.appendChild(script);
       }
     }
-      <script type="text/javascript" src="$i.js"></script>
 " >> webInterface/index.html
 done
-echo "</script>
-</head>
-<body>
-<div id="chartContainer" style="height: 370px; width:100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>" >> webInterface/index.html
+echo "
+</script>
+  </head>
+  <body>" >> webInterface/index.html
+  
+  echo '<div id="chartContainer" style="height: 370px; width:100%"></div>' >> webInterface/index.html
+
+
+echo "<script src='"https://canvasjs.com/assets/script/canvasjs.min.js"'></script>" >> webInterface/index.html
+
 for i in ${addrList}
 do
   echo "
-  <script type="text/javascript" src="$i.js"></script>
+<script type="text/javascript" src="$i.js"></script>
   " >> webInterface/index.html
 done
 echo "</body>
