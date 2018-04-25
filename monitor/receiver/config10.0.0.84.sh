@@ -1,2 +1,2 @@
 id=007f0101
-name='Dell R710'
+name='Dell_R710'

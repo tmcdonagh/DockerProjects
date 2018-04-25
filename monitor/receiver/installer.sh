@@ -18,7 +18,7 @@ then
       echo "wget $addr:8082/info.js" >> updater.sh
       wget -N $addr:8082/config.sh
       mv config.sh config$addr.sh 
-      echo "mv info.js /var/www/html/$addr"$num".js" >> updater.sh
+      echo "mv info.js /var/www/html/$addr.js" >> updater.sh
       addrList+=("$addr")
       dialog \
         --yesno "\nAdd another?" 10 30
@@ -108,7 +108,7 @@ do
   echo "" >> webInterface/index.html
   echo -n '<div id=' >> webInterface/index.html
   echo -n "$i " >> webInterface/index.html
-  echo -n 'style="height: 370px; width:100%"></div>' >> webInterface/index.html
+  echo -n 'style="height: 400px; width:80%"></div>' >> webInterface/index.html
 done
 
 echo "<script src='"https://canvasjs.com/assets/script/canvasjs.min.js"'></script>" >> webInterface/index.html
