@@ -1,11 +1,12 @@
 #!/bin/bash
+source config.sh
 out="/var/www/html/info.js"
 while : 
 do
   avg="0.00"
   num="0"
   perc=($(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print $3}'))
-  echo "var cores = {" >> $out;
+  echo "var server$id = {" >> $out;
   totalCpu="0"
   for i in "${perc[@]}"
   do
