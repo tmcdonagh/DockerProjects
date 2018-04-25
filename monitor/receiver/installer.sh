@@ -4,6 +4,7 @@ dialog \
   --yesno "\nInstall Receiver?" 10 30
 if [ $? == 0 ]
 then
+  addrList=()
   echo "#!/bin/bash" > updater.sh
   echo "while :" >> updater.sh
   echo "do" >> updater.sh
@@ -16,8 +17,12 @@ then
     if [ $? == 0 ]
     then
       echo "wget $addr:8082/info.js" >> updater.sh
-      echo "wget -N $addr:8082/config.sh" >> updater.sh
+      #echo "wget -N $addr:8082/config.sh" >> updater.sh # need to move to native file
+      wget -N $addr:8082/config.sh
+      mv config.sh config$addr.sh 
+      #echo "mv config.sh config$addr.sh" >> updater.sh
       echo "mv info.js /var/www/html/$addr"$num".js" >> updater.sh
+      addrList+=("$addr")
       dialog \
         --yesno "\nAdd another?" 10 30
       if [ $? == 1 ]
@@ -28,6 +33,85 @@ then
   done
   echo "sleep 2" >> updater.sh
   echo "done" >> updater.sh
+
+  # Builds webInterface/index.html based on previous data
+
+  echo "
+    <html>
+      <head>
+        <script>" > webInterface/index.html
+  for i in ${addrList}
+  do
+    source config$i.sh
+    echo "
+    window.onload = function() {
+      var dps = [];
+      var chart = new CanvasJS.Chart("chartContainer", {
+        exportEnabled: true,
+        title :{
+          text: "$name"
+        },
+        axisY: {
+          includeZero: false,
+          viewportMaximum: 105,
+          viewportMinimum: 0
+        },
+        data: [{
+          type: "line",
+          markerSize: 0,
+          dataPoints: dps
+        }]
+      });
+
+      var xVal = 0;
+      var yVal = 100;
+      var updateInterval = 1000;
+      var dataLength = 200;
+
+      var updateChart = function (count) {
+        count = count || 1;
+        
+        for (var j = 0; j < count; j++) {
+          load_js();
+          yVal = server$id.coreAvg || 0;
+          dps.push({
+            x: xVal,
+            y: yVal
+          });
+          xVal++;
+        }
+        if(dps.length > dataLength){
+          dps.shift();
+        }
+        chart.render();
+      };
+
+      updateChart(dataLength);
+      setInterval(function(){ updateChart() }, updateInterval);
+      function load_js(){
+        var head = document.getElementsByTagName('head')[0];
+        var script.type = 'text/javascript';
+        head.appendChild(script);
+      }
+    }
+      <script type="text/javascript" src="$i.js"></script>
+" >> webInterface/index.html
+done
+echo "</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width:100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>" >> webInterface/index.html
+for i in ${addrList}
+do
+  echo "
+  <script type="text/javascript" src="$i.js"></script>
+  " >> webInterface/index.html
+done
+echo "</body>
+</html>" >> webInterface/index.html
+
+
 
   sudo docker build -t receiver .
 else
