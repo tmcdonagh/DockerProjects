@@ -8,6 +8,11 @@ then
   echo "#!/bin/bash" > updater.sh
   echo "while :" >> updater.sh
   echo "do" >> updater.sh
+  echo "
+  <!DOCTYPE HTML>
+    <html>
+      <head>
+        <script>" > webInterface/index.html
   while :
   do
     addr=$(dialog --inputbox "What ip or domain do you want to connect to?" 10 25 --output-fd 1)
@@ -34,14 +39,15 @@ then
 
   # Builds webInterface/index.html based on previous data
 
-  echo "
-  <!DOCTYPE HTML>
-    <html>
-      <head>
-        <script>" > webInterface/index.html
+  #echo "
+  #<!DOCTYPE HTML>
+  #  <html>
+  #    <head>
+  #      <script>" > webInterface/index.html
   for i in ${addrList}
   do
     source config$i.sh
+    echo "config$i.sh"
     echo "
     window.onload = function() {
       var dps = [];
