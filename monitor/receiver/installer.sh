@@ -11,7 +11,6 @@ then
   while :
   do
     addr=$(dialog --inputbox "What ip or domain do you want to connect to?" 10 25 --output-fd 1)
-    #name=$(dialog --inputbox "What should it be titled?" 10 25 --output-fd 1)
     dialog \
       --yesno "\nIs this correct? \n$addr" 10 30
     if [ $? == 0 ]
@@ -46,7 +45,7 @@ then
     <script>
     window.onload = function() {
       var dps = [];
-      var chart = new CanvasJS.Chart('"chartContainer"', {
+      var chart = new CanvasJS.Chart('"$i"', {
         exportEnabled: true,
         title :{
           text: '"$name"'
@@ -73,7 +72,7 @@ then
         
         for (var j = 0; j < count; j++) {
           load_js();
-          yVal = server$id.coreAvg || 0;
+          yVal = server$name.coreAvg || 0;
           dps.push({
             x: xVal,
             y: yVal
@@ -92,23 +91,29 @@ then
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = '$addr.js';
+        script.src = '$i.js';
         head.appendChild(script);
       }
     }
 </script>
+<br>
 " >> webInterface/index.html
 done
 echo "
 </head>
 <body>" >> webInterface/index.html
   
-  echo '<div id="chartContainer" style="height: 370px; width:100%"></div>' >> webInterface/index.html
-
+for i in ${addrList[@]}
+do
+  echo "" >> webInterface/index.html
+  echo -n '<div id=' >> webInterface/index.html
+  echo -n "$i " >> webInterface/index.html
+  echo -n 'style="height: 370px; width:100%"></div>' >> webInterface/index.html
+done
 
 echo "<script src='"https://canvasjs.com/assets/script/canvasjs.min.js"'></script>" >> webInterface/index.html
 
-for i in ${addrList}
+for i in ${addrList[@]}
 do
   echo "
 <script type="text/javascript" src="$i.js"></script>

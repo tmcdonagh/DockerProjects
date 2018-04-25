@@ -6,7 +6,7 @@ do
   avg="0.00"
   num="0"
   perc=($(mpstat -P ALL 1 1 | awk '/Average:/ && $2 ~ /[0-9]/ {print $3}'))
-  echo "var server$id = {" >> $out;
+  echo "var server$name = {" >> $out;
   totalCpu="0"
   for i in "${perc[@]}"
   do
