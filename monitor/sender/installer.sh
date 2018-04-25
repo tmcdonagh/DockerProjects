@@ -6,7 +6,7 @@ if [ $? == 0 ]
 then
   while : 
   do
-    name=$(dialog --inputbox "What should the server be titled?" 10 25 --output-fd 1)
+    name=$(dialog --inputbox "What should the server be titled?\n No spaces" 10 25 --output-fd 1)
     dialog \
       --yesno "\nIs $name correct?" 10 30
     if [ $? == 0 ]
