@@ -4,20 +4,25 @@ dialog \
   --yesno "\nInstall Receiver?" 10 30
 if [ $? == 0 ]
 then
+  echo "#!/bin/bash" > updater.sh
+  echo "while :" >> updater.sh
+  echo "do" >> updater.sh
   while :
   do
-    addr=$(dialog --inputbox "What ip or domain do you want to connect to? (\nLeave blank if done)" 10 25 --output-fd 1)
-    if [ $? == "" ]
+    addr=$(dialog --inputbox "What ip or domain do you want to connect to?" 10 25 --output-fd 1)
+    #name=$(dialog --inputbox "What should it be titled?" 10 25 --output-fd 1)
+    dialog \
+      --yesno "\nIs this correct? \n$addr" 10 30
+    if [ $? == 0 ]
     then
-      exit 1
-    else
-      name=$(dialog --inputbox "What should it be titled?" 10 25 --output 1)
+      echo "wget $addr:8082/info.js" >> updater.sh
+      echo "wget -N $addr:8082/config.sh" >> updater.sh
+      echo "mv info.js /var/www/html/$addr"$num".js" >> updater.sh
       dialog \
-        --yesno "\nIs this correct? \n$addr\n$name" 10 30
-      if [ $? == 0 ]
+        --yesno "\nAdd another?" 10 30
+      if [ $? == 1 ]
       then
-        echo "wget $addr:8082/info.js" >> updater.sh
-        echo "mv info.js /var/www/html/addr$num.js" >> updater.sh
+        break
       fi
     fi
   done
