@@ -36,80 +36,148 @@ then
   echo "
   <!DOCTYPE HTML>
     <html>
-      <head>" > webInterface/index.html
+      <head>
+        <script>
+  window.onload = function () {
+  " > webInterface/index.html
   for i in ${addrList[@]}
   do
     source config$i.sh
-    echo "config$i.sh"
+    echo "var data$name = [];"
+  done
+  echo " 
+  var chart = new CanvasJS.Chart('chartContainer', {
+    zoomEnabled: true,
+    title: {
+      text: '"CPU Percentage"'
+    },
+    axisX: {
+    },
+    axisY: {
+      //suffix: "%",
+      includeZero: true
+    },
+    legend: {
+    cursor:'"pointer"',
+    verticalAlign: '"top"',
+    fontSize: 22,
+    fontColor: '"dimGrey"',
+    itemclick : toggleDataSeries
+  },
+  data: [{
+  " >> webInterface/index.html
+  total=0
+  index=1
+  for i in ${addrList[@]}
+  do
+    total=$(($total+1))
+  done
+ 
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
     echo "
-    <script>
-    window.onload = function() {
-      var dps = [];
-      var chart = new CanvasJS.Chart('"$i"', {
-        exportEnabled: true,
-        title :{
-          text: '"$name"'
-        },
-        axisY: {
-          includeZero: false,
-          viewportMaximum: 105,
-          viewportMinimum: 0
-        },
-        data: [{
-          type: '"line"',
-          markerSize: 0,
-          dataPoints: dps
-        }]
-      });
+    type: '"line"',
+    showInLegend: true,
+    name: '"$name"',
+    dataPoints: 'data$name'
+    " >> webInterface/index.html
+    if [ $index == $total ]
+    then
+      echo "
+      }]
+    });  
+    " >> webInterface/index.html
+    else
+      index=$(($index+1))
+      echo "
+    },
+    {
+    " >> webInterface/index.html
+    fi
+   
 
-      var xVal = 0;
-      var yVal = 100;
-      var updateInterval = 1000;
-      var dataLength = 200;
-
-      var updateChart = function (count) {
-        count = count || 1;
-        
-        for (var j = 0; j < count; j++) {
-          load_js();
-          yVal = server$name.coreAvg || 0;
-          dps.push({
-            x: xVal,
-            y: yVal
-          });
-          xVal++;
-        }
-        if(dps.length > dataLength){
-          dps.shift();
-        }
-        chart.render();
-      };
-
-      updateChart(dataLength);
-      setInterval(function(){ updateChart() }, updateInterval);
-      function load_js(){
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '$i.js';
-        head.appendChild(script);
-      }
+  done
+  echo "
+  function toggleDataSeries(e) {
+    if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible){
+      e.dataSeries.visible = false;
     }
+    else {
+      e.dataSeries.visible = true;
+    }
+    chart.render();
+  }
+  var xVal = 0;
+  var yVal = 100;
+  var updateInterval = 2000;
+  var dataLength = 200;
+  " >> webInterface/index.html
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
+    echo "
+    var yValue$name = 0;
+    " >> webInterface/index.html
+  done
+  echo "
+  function updateChart(count){
+    count = count || 1;
+    load_js();
+  " >> webInterface/index.html
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
+    echo "yValue$name = server$name.coreAvg || 0;" >> webInterface/index.html
+  done
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
+    echo "
+    data$name.push({
+      x: xVal,
+      y: yValue$name
+    });
+    " >> webInterface/index.html
+  done
+  numberData=0
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
+    echo "
+    chart.options.data[$numberData].legendText = " $name " + yValue$name;
+    " >> webInterface/index.html
+  done
+  echo "
+  chart.render();
+  }
+
+  updateChart(100);
+  setInterval(function(){updateChart()}, updateInterval);
+  function load_js(){
+  " >> webInterface/index.html  
+  for i in ${addrList[@]}
+  do
+    source config$i.sh
+    echo "
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '"$addr.js"';
+    head.appendChild(script);
+    " >> webInterface/index.html
+  done
+
+
+  echo "
+}
+}
 </script>
-<br>
-" >> webInterface/index.html
-done
-echo "
 </head>
-<body>" >> webInterface/index.html
-  
-for i in ${addrList[@]}
-do
-  echo "" >> webInterface/index.html
-  echo -n '<div id=' >> webInterface/index.html
-  echo -n "$i " >> webInterface/index.html
-  echo -n 'style="height: 400px; width:80%"></div>' >> webInterface/index.html
-done
+<body>
+  " >> webInterface/index.html
+
+echo '<div id='chartContainer' style="height: 370px; width:100%"></div>' >> webInterface/index.html
 
 echo "<script src='"https://canvasjs.com/assets/script/canvasjs.min.js"'></script>" >> webInterface/index.html
 
@@ -121,8 +189,6 @@ do
 done
 echo "</body>
 </html>" >> webInterface/index.html
-
-
 
   sudo docker build -t receiver .
 else

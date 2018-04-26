@@ -2,126 +2,127 @@
   <!DOCTYPE HTML>
     <html>
       <head>
+        <script>
+  window.onload = function () {
+  
+ 
+  var chart = new CanvasJS.Chart('chartContainer', {
+    zoomEnabled: true,
+    title: {
+      text: 'CPU Percentage'
+    },
+    axisX: {
+    },
+    axisY: {
+      //suffix: %,
+      includeZero: true
+    },
+    legend: {
+    cursor:'pointer',
+    verticalAlign: 'top',
+    fontSize: 22,
+    fontColor: 'dimGrey',
+    itemclick : toggleDataSeries
+  },
+  data: [{
+  
 
-    <script>
-    window.onload = function() {
-      var dps = [];
-      var chart = new CanvasJS.Chart('10.0.0.84', {
-        exportEnabled: true,
-        title :{
-          text: 'Dell_R710'
-        },
-        axisY: {
-          includeZero: false,
-          viewportMaximum: 105,
-          viewportMinimum: 0
-        },
-        data: [{
-          type: 'line',
-          markerSize: 0,
-          dataPoints: dps
-        }]
-      });
+    type: 'line',
+    showInLegend: true,
+    name: 'Dell_R710',
+    dataPoints: 'dataDell_R710'
+    
 
-      var xVal = 0;
-      var yVal = 100;
-      var updateInterval = 1000;
-      var dataLength = 200;
+    },
+    {
+    
 
-      var updateChart = function (count) {
-        count = count || 1;
-        
-        for (var j = 0; j < count; j++) {
-          load_js();
-          yVal = serverDell_R710.coreAvg || 0;
-          dps.push({
-            x: xVal,
-            y: yVal
-          });
-          xVal++;
-        }
-        if(dps.length > dataLength){
-          dps.shift();
-        }
-        chart.render();
-      };
+    type: 'line',
+    showInLegend: true,
+    name: 'McDonagh_Corp',
+    dataPoints: 'dataMcDonagh_Corp'
+    
 
-      updateChart(dataLength);
-      setInterval(function(){ updateChart() }, updateInterval);
-      function load_js(){
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '10.0.0.84.js';
-        head.appendChild(script);
-      }
+      }]
+    });  
+    
+
+  function toggleDataSeries(e) {
+    if(typeof(e.dataSeries.visible) === undefined || e.dataSeries.visible){
+      e.dataSeries.visible = false;
     }
-</script>
-<br>
-
-
-    <script>
-    window.onload = function() {
-      var dps = [];
-      var chart = new CanvasJS.Chart('10.0.0.95', {
-        exportEnabled: true,
-        title :{
-          text: 'McDonagh_Corp'
-        },
-        axisY: {
-          includeZero: false,
-          viewportMaximum: 105,
-          viewportMinimum: 0
-        },
-        data: [{
-          type: 'line',
-          markerSize: 0,
-          dataPoints: dps
-        }]
-      });
-
-      var xVal = 0;
-      var yVal = 100;
-      var updateInterval = 1000;
-      var dataLength = 200;
-
-      var updateChart = function (count) {
-        count = count || 1;
-        
-        for (var j = 0; j < count; j++) {
-          load_js();
-          yVal = serverMcDonagh_Corp.coreAvg || 0;
-          dps.push({
-            x: xVal,
-            y: yVal
-          });
-          xVal++;
-        }
-        if(dps.length > dataLength){
-          dps.shift();
-        }
-        chart.render();
-      };
-
-      updateChart(dataLength);
-      setInterval(function(){ updateChart() }, updateInterval);
-      function load_js(){
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '10.0.0.95.js';
-        head.appendChild(script);
-      }
+    else {
+      e.dataSeries.visible = true;
     }
+    chart.render();
+  }
+  var xVal = 0;
+  var yVal = 100;
+  var updateInterval = 2000;
+  var dataLength = 200;
+  
+
+    var yValueDell_R710 = 0;
+    
+
+    var yValueMcDonagh_Corp = 0;
+    
+
+  function updateChart(count){
+    count = count || 1;
+    load_js();
+  
+yValueDell_R710 = serverDell_R710.coreAvg || 0;
+yValueMcDonagh_Corp = serverMcDonagh_Corp.coreAvg || 0;
+
+    dataDell_R710.push({
+      x: xVal,
+      y: yValueDell_R710
+    });
+    
+
+    dataMcDonagh_Corp.push({
+      x: xVal,
+      y: yValueMcDonagh_Corp
+    });
+    
+
+    chart.options.data[0].legendText =  Dell_R710  + yValueDell_R710;
+    
+
+    chart.options.data[0].legendText =  McDonagh_Corp  + yValueMcDonagh_Corp;
+    
+
+  chart.render();
+  }
+
+  updateChart(100);
+  setInterval(function(){updateChart()}, updateInterval);
+  function load_js(){
+  
+
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '10.0.0.95.js';
+    head.appendChild(script);
+    
+
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '10.0.0.95.js';
+    head.appendChild(script);
+    
+
+}
+}
 </script>
-<br>
-
-
 </head>
 <body>
-
-<div id=10.0.0.84 style="height: 400px; width:80%"></div>
-<div id=10.0.0.95 style="height: 400px; width:80%"></div><script src='https://canvasjs.com/assets/script/canvasjs.min.js'></script>
+  
+<div id=chartContainer style="height: 370px; width:100%"></div>
+<script src='https://canvasjs.com/assets/script/canvasjs.min.js'></script>
 
 <script type=text/javascript src=10.0.0.84.js></script>
   

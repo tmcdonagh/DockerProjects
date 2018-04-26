@@ -1,6 +1,6 @@
 #!/bin/bash
 source config.sh
-out="/var/www/html/info.js"
+out="info.js"
 while : 
 do
   avg="0.00"
@@ -20,4 +20,5 @@ do
   echo "};" >> $out
   sleep 2
   echo "" > $out
+  mv info.js /var/www/html/info.js
 done
