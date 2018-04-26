@@ -1,6 +1,6 @@
 #!/bin/bash
 source config.sh
-out="info.js"
+out="/var/www/html/prepInfo.js"
 while : 
 do
   avg="0.00"
@@ -19,6 +19,6 @@ do
   echo "coreAvg : "$avg"," >> $out
   echo "};" >> $out
   sleep 2
-  echo "" > $out
-  mv info.js /var/www/html/info.js
+  #echo "" > $out
+  mv /var/www/html/prepInfo.js /var/www/html/info.js
 done

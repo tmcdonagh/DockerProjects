@@ -43,7 +43,7 @@ then
   for i in ${addrList[@]}
   do
     source config$i.sh
-    echo "var data$name = [];"
+    echo "var data$name = [];" >> webInterface/index.html
   done
   echo " 
   var chart = new CanvasJS.Chart('chartContainer', {
@@ -124,6 +124,8 @@ then
   function updateChart(count){
     count = count || 1;
     load_js();
+    for (var i = 0; i < count; i++){
+      xVal++;
   " >> webInterface/index.html
   for i in ${addrList[@]}
   do
@@ -136,16 +138,17 @@ then
     echo "
     data$name.push({
       x: xVal,
-      y: yValue$name
+      y: yValue$name,
     });
     " >> webInterface/index.html
+    echo "}" >> webInterface/index.html
   done
   numberData=0
   for i in ${addrList[@]}
   do
     source config$i.sh
     echo "
-    chart.options.data[$numberData].legendText = " $name " + yValue$name;
+    chart.options.data[$numberData].legendText = '" $name "' + yValue$name;
     " >> webInterface/index.html
   done
   echo "

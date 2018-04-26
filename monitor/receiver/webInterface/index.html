@@ -5,6 +5,7 @@
         <script>
   window.onload = function () {
   
+var dataDell = [];
  
   var chart = new CanvasJS.Chart('chartContainer', {
     zoomEnabled: true,
@@ -29,18 +30,8 @@
 
     type: 'line',
     showInLegend: true,
-    name: 'Dell_R710',
-    dataPoints: 'dataDell_R710'
-    
-
-    },
-    {
-    
-
-    type: 'line',
-    showInLegend: true,
-    name: 'McDonagh_Corp',
-    dataPoints: 'dataMcDonagh_Corp'
+    name: 'Dell',
+    dataPoints: 'dataDell'
     
 
       }]
@@ -62,35 +53,25 @@
   var dataLength = 200;
   
 
-    var yValueDell_R710 = 0;
-    
-
-    var yValueMcDonagh_Corp = 0;
+    var yValueDell = 0;
     
 
   function updateChart(count){
     count = count || 1;
     load_js();
+    for (var i = 0; i < count; i++){
+      xVal++;
   
-yValueDell_R710 = serverDell_R710.coreAvg || 0;
-yValueMcDonagh_Corp = serverMcDonagh_Corp.coreAvg || 0;
+yValueDell = serverDell.coreAvg || 0;
 
-    dataDell_R710.push({
+    dataDell.push({
       x: xVal,
-      y: yValueDell_R710
+      y: yValueDell,
     });
     
+}
 
-    dataMcDonagh_Corp.push({
-      x: xVal,
-      y: yValueMcDonagh_Corp
-    });
-    
-
-    chart.options.data[0].legendText =  Dell_R710  + yValueDell_R710;
-    
-
-    chart.options.data[0].legendText =  McDonagh_Corp  + yValueMcDonagh_Corp;
+    chart.options.data[0].legendText = ' Dell ' + yValueDell;
     
 
   chart.render();
@@ -104,14 +85,7 @@ yValueMcDonagh_Corp = serverMcDonagh_Corp.coreAvg || 0;
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = '10.0.0.95.js';
-    head.appendChild(script);
-    
-
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = '10.0.0.95.js';
+    script.src = '10.0.0.84.js';
     head.appendChild(script);
     
 
@@ -125,9 +99,6 @@ yValueMcDonagh_Corp = serverMcDonagh_Corp.coreAvg || 0;
 <script src='https://canvasjs.com/assets/script/canvasjs.min.js'></script>
 
 <script type=text/javascript src=10.0.0.84.js></script>
-  
-
-<script type=text/javascript src=10.0.0.95.js></script>
   
 </body>
 </html>
