@@ -57,6 +57,9 @@ then
       //suffix: "%",
       includeZero: true
     },
+    toolTip: {
+      shared: true
+    },
     legend: {
     cursor:'"pointer"',
     verticalAlign: '"top"',
@@ -78,9 +81,11 @@ then
     source config$i.sh
     echo "
     type: '"line"',
+    xValueType: '"dateTime"',
+    xValueFormatString: '"hh:mm:ss TT"',
     showInLegend: true,
     name: '"$name"',
-    dataPoints: 'data$name'
+    dataPoints: data$name
     " >> webInterface/index.html
     if [ $index == $total ]
     then
@@ -108,10 +113,16 @@ then
     }
     chart.render();
   }
-  var xVal = 0;
   var yVal = 100;
   var updateInterval = 2000;
-  var dataLength = 200;
+  var time = new Date;
+
+  time.setHours(9);
+  time.setMinutes(30);
+  time.setSeconds(00);
+  time.setMilliseconds(00);
+
+
   " >> webInterface/index.html
   for i in ${addrList[@]}
   do
@@ -125,7 +136,7 @@ then
     count = count || 1;
     load_js();
     for (var i = 0; i < count; i++){
-      xVal++;
+      time.setTime(time.getTime()+ updateInterval);
   " >> webInterface/index.html
   for i in ${addrList[@]}
   do
@@ -137,7 +148,7 @@ then
     source config$i.sh
     echo "
     data$name.push({
-      x: xVal,
+    x: time.getTime(),
       y: yValue$name,
     });
     " >> webInterface/index.html
@@ -157,6 +168,7 @@ then
 
   updateChart(100);
   setInterval(function(){updateChart()}, updateInterval);
+}
   function load_js(){
   " >> webInterface/index.html  
   for i in ${addrList[@]}
@@ -174,7 +186,7 @@ then
 
   echo "
 }
-}
+
 </script>
 </head>
 <body>
