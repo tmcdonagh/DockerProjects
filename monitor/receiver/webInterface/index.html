@@ -6,6 +6,7 @@
   window.onload = function () {
   
 var dataDell_R710 = [];
+var dataMcDonaghCorp = [];
  
   var chart = new CanvasJS.Chart('chartContainer', {
     zoomEnabled: true,
@@ -13,10 +14,12 @@ var dataDell_R710 = [];
       text: 'CPU Percentage'
     },
     axisX: {
+      labelFontSize: 0,
     },
     axisY: {
-      //suffix: %,
-      includeZero: true
+      includeZero: true,
+      viewportMaximum: 105,
+      viewportMinimum: 0
     },
     toolTip: {
       shared: true
@@ -37,6 +40,18 @@ var dataDell_R710 = [];
     showInLegend: true,
     name: 'Dell_R710',
     dataPoints: dataDell_R710
+    
+
+    },
+    {
+    
+
+    type: 'line',
+    xValueType: 'dateTime',
+    xValueFormatString: 'hh:mm:ss TT',
+    showInLegend: true,
+    name: 'McDonaghCorp',
+    dataPoints: dataMcDonaghCorp
     
 
       }]
@@ -67,6 +82,9 @@ var dataDell_R710 = [];
     var yValueDell_R710 = 0;
     
 
+    var yValueMcDonaghCorp = 0;
+    
+
   function updateChart(count){
     count = count || 1;
     load_js();
@@ -74,15 +92,25 @@ var dataDell_R710 = [];
       time.setTime(time.getTime()+ updateInterval);
   
 yValueDell_R710 = serverDell_R710.coreAvg || 0;
+yValueMcDonaghCorp = serverMcDonaghCorp.coreAvg || 0;
 
     dataDell_R710.push({
     x: time.getTime(),
       y: yValueDell_R710,
     });
     
+
+    dataMcDonaghCorp.push({
+    x: time.getTime(),
+      y: yValueMcDonaghCorp,
+    });
+    
 }
 
     chart.options.data[0].legendText = ' Dell_R710 ' + yValueDell_R710;
+    
+
+    chart.options.data[0+1].legendText = ' McDonaghCorp ' + yValueMcDonaghCorp;
     
 
   chart.render();
@@ -101,6 +129,13 @@ yValueDell_R710 = serverDell_R710.coreAvg || 0;
     head.appendChild(script);
     
 
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '10.0.0.95.js';
+    head.appendChild(script);
+    
+
 }
 
 </script>
@@ -112,5 +147,11 @@ yValueDell_R710 = serverDell_R710.coreAvg || 0;
 
 <script type=text/javascript src=10.0.0.84.js></script>
   
+
+<script type=text/javascript src=10.0.0.95.js></script>
+  
+
+<center><a href=https://github.com/tmcdonagh/DockerProjects/tree/master/monitor>GitHub</a></center>
+
 </body>
 </html>

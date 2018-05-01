@@ -52,10 +52,12 @@ then
       text: '"CPU Percentage"'
     },
     axisX: {
+      labelFontSize: 0,
     },
     axisY: {
-      //suffix: "%",
-      includeZero: true
+      includeZero: true,
+      viewportMaximum: 105,
+      viewportMinimum: 0
     },
     toolTip: {
       shared: true
@@ -152,8 +154,9 @@ then
       y: yValue$name,
     });
     " >> webInterface/index.html
-    echo "}" >> webInterface/index.html
+    #echo "}" >> webInterface/index.html
   done
+  echo "}" >> webInterface/index.html
   numberData=0
   for i in ${addrList[@]}
   do
@@ -161,6 +164,7 @@ then
     echo "
     chart.options.data[$numberData].legendText = '" $name "' + yValue$name;
     " >> webInterface/index.html
+    numberData=($numberData+1)
   done
   echo "
   chart.render();
@@ -178,7 +182,7 @@ then
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = '"$addr.js"';
+    script.src = '"$i.js"';
     head.appendChild(script);
     " >> webInterface/index.html
   done
@@ -202,7 +206,10 @@ do
 <script type="text/javascript" src="$i.js"></script>
   " >> webInterface/index.html
 done
-echo "</body>
+echo "
+<center><a href="https://github.com/tmcdonagh/DockerProjects/tree/master/monitor">GitHub</a></center>
+
+</body>
 </html>" >> webInterface/index.html
 
   sudo docker build -t receiver .
