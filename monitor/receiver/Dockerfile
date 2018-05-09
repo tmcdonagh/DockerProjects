@@ -11,5 +11,4 @@ ADD webInterface/ /var/www/html
 
 RUN chmod +x /receiver/updater.sh && chmod +x /receiver/tmux.sh
 
-
 EXPOSE 80
