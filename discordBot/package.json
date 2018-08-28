@@ -1,0 +1,8 @@
+{
+  "name": "lmao-bot",
+  "version": "1.0.0",
+  "description": "Counts how many times lmao is said",
+  "main": "bot.js",
+  "author": "Thomas McDonagh",
+  "dependencies": {}
+}
