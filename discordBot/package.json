@@ -4,5 +4,9 @@
   "description": "Counts how many times lmao is said",
   "main": "bot.js",
   "author": "Thomas McDonagh",
-  "dependencies": {}
+  "dependencies": {
+    "discord.io": "github:woor/discord.io#gateway_v6",
+    "discord.js": "^11.4.2",
+    "winston": "^3.0.0"
+  }
 }
