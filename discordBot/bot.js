@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 var auth = require('./auth.json');
+var spam = false;
 
 client.on("ready", () => {
   console.log("ready");
@@ -37,6 +38,45 @@ client.on("message", (message) => {
 
     message.channel.send("https://imgur.com/a/pjRYfO0");
 
+  }
+  if(
+    message.content.startsWith("UNRELIABLE") || 
+    message.content.startsWith("UNRELIABLE?")
+  ){
+    message.channel.send("https://www.youtube.com/watch?v=mRRwbhN4-sU");
+  }
+  if(
+    message.content.startsWith("WAM") ||
+    message.content.startsWith("wam") ||
+    message.content.startsWith("WAM?") ||
+    message.content.startsWith("wam?") ||
+    message.content.startsWith("Wam?") ||
+    message.content.startsWith("Wam") ||
+    message.content.startsWith("Dedodated wam") || 
+    message.content.startsWith("dedodated wam")
+  ){
+    message.channel.send("https://www.youtube.com/watch?v=Xgop6Udl1_c");
+  }
+  if(
+    message.content.startsWith("What's Boneless Pizza?") || 
+    message.content.startsWith("whats boneless pizza?")
+  ){
+    message.channel.send("https://youtu.be/ud1JXqGWPvU");
+  }
+
+  if(
+    message.content.startsWith("Is that spam I hear?")
+  ){
+    spam = true;
+  }
+  if(
+    message.content.startsWith("Stop") || 
+    message.content.startsWith("stop")
+  ){
+    spam = false;
+  }
+  if(spam == true){
+    message.channel.send("Did someone say spam?");
   }
 
 
