@@ -4,7 +4,7 @@ dialog \
 if [ $? == 0 ]
 then
   sudo docker build -t clouddb .
-  sudo docker run --name=clouddb --restart=always -d -p 3306:3306 clouddb
+  sudo docker run --name=clouddb --restart=always -e MYSQL_ROOT_PASSWORD=5fbtjwxm -d -p 3306:3306 clouddb
 fi
 
 
