@@ -12,8 +12,18 @@ client.on("message", (message) => {
   if (message.content.startsWith("ping")) {
     message.channel.send("pong!");
   }
-  if(message.content.startsWith("lmao")){
-    message.channel.send("Lmao");
+  if(
+    message.content.startsWith("lmao") ||
+    message.content.startsWith("Lmao")
+  ){
+    message.channel.send(":joy:");
+  }
+  if(
+    message.content.startsWith("Lmfao") ||
+    message.content.startsWith("lmfao") ||
+    message.content.startsWith("LMFAO")
+  ){
+    message.channel.send(":joy: :joy: :joy:");
   }
   if(
     message.content.startsWith("Thx Lmao Bot") ||
@@ -38,6 +48,14 @@ client.on("message", (message) => {
 
     message.channel.send("https://imgur.com/a/pjRYfO0");
 
+  }
+  if(
+    message.content.startsWith("icloud?") || 
+    message.content.startsWith("iCloud?") ||
+    message.content.startsWith("Icloud?") ||
+    message.content.startsWith("ICloud?")
+  ){
+    message.channel.send("https://i.reddit.it/2qxyuf2zz9g11.jpg");
   }
   if(
     message.content.startsWith("UNRELIABLE") || 
