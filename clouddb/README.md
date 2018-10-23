@@ -1,3 +1,3 @@
-# Cloud Storage
+# Cloud DB
 
-Project to make a web UI for storing files on server
+Project to make mysql server
