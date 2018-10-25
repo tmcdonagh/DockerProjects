@@ -12,17 +12,18 @@ do
       time=$(date)
       echo "Lost connection at          $(date)" >> connectionChecker.log
       connected=false
-      echo "INSERT INTO logs (status,time) VALUES ('lost','$time')"| mysql -uroot -ptest clouddb
+      echo "INSERT INTO logs (status,time) VALUES ('Lost connection:','$time')"| mysql -uroot -ptest clouddb
     fi
   else
     if [ $connected == false ]
     then
       time=$(date)
-      echo "INSERT INTO logs (status,time) VALUES ('re','$time')"| mysql -uroot -ptest clouddb
+      echo "INSERT INTO logs (status,time) VALUES ('Reconnected:','$time')"| mysql -uroot -ptest clouddb
       echo "Reestablished connection at $(date)" >> connectionChecker.log
       connected=true
     fi
   fi
+  echo "INSERT INTO logs (status,time) VALUES ('Lost connection : ','  $time')"| mysql -uroot -ptest clouddb
+  echo "INSERT INTO logs (status,time) VALUES ('Reconnected : ','  $time')"| mysql -uroot -ptest clouddb
   sleep 10
-  echo "INSERT INTO logs (status,time) VALUES ('re','$time')"| mysql -uroot -ptest clouddb
 done
