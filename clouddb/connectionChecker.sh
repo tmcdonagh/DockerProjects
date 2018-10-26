@@ -23,7 +23,5 @@ do
       connected=true
     fi
   fi
-  echo "INSERT INTO logs (status,time) VALUES ('Lost connection : ','  $time')"| mysql -uroot -ptest clouddb
-  echo "INSERT INTO logs (status,time) VALUES ('Reconnected : ','  $time')"| mysql -uroot -ptest clouddb
   sleep 10
 done
