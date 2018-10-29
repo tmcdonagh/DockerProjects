@@ -1,6 +1,7 @@
 #!/bin/bash
+#sleep 15
 time=$(date)
-mysql -ptest < main.sql
+mysql -ptest < /src/main.sql
 connected=true
 while :
 do
