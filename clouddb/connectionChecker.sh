@@ -22,5 +22,7 @@ do
       connected=true
     fi
   fi
+  echo date >> /src/date.txt
   sleep 10
+
 done

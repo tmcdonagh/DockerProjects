@@ -16,5 +16,4 @@ do
     break
   fi
   sleep 1
-  
 done
