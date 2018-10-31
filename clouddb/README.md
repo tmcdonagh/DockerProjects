@@ -1,3 +1,3 @@
 # Cloud DB
 
-Project to make mysql server
+MySQL Server that hosts a few projects DBs
