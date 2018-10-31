@@ -9,3 +9,8 @@ CREATE TABLE logs(
   status VARCHAR(50) NOT NULL,
   time VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE cpu(
+  perc VARCHAR(50) NOT NULL,
+  time VARCHAR(50) NOT NULL
+);
