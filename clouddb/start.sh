@@ -18,3 +18,4 @@ do
   sleep 1
   
 done
+# cat /proc/meminfo

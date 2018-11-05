@@ -1,5 +1,5 @@
 #!/bin/bash
-time=$(TZ='America/Chicago' date)
+time=$(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")
 connected=true
 while :
 do
@@ -8,20 +8,20 @@ do
   then
     if [ $connected == true ]
     then
-      time=$(TZ='America/Chicago' date)
-      echo "Lost connection at          $(TZ='America/Chicago' date)" >> connectionChecker.log
+      time=$(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")
+      echo "Lost connection at          $(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")" >> connectionChecker.log
       connected=false
       echo "INSERT INTO logs (status,time) VALUES ('Lost connection:','$time')"| mysql -uroot -ptest clouddb
     fi
   else
     if [ $connected == false ]
     then
-      time=$(TZ='America/Chicago' date)
+      time=$(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")
       echo "INSERT INTO logs (status,time) VALUES ('Reconnected:','$time')"| mysql -uroot -ptest clouddb
-      echo "Reestablished connection at $(TZ='America/Chicago' date)" >> connectionChecker.log
+      echo "Reestablished connection at $(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")" >> connectionChecker.log
       connected=true
     fi
   fi
-  echo $(TZ='America/Chicago' date) >> /src/date.txt
+  echo $(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p") >> /src/date.txt
   sleep 10
 done
