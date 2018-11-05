@@ -17,5 +17,6 @@ CREATE TABLE cpu(
 
 CREATE TABLE mem(
   free VARCHAR(50) NOT NULL,
-  available VARCHAR(50) NOT NULL
+  total VARCHAR(50) NOT NULL,
+  time VARCHAR(50) NOT NULL
 );

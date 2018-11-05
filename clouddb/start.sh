@@ -13,6 +13,7 @@ do
       mysql -ptest < /src/main.sql
     fi
     /src/connectionChecker.sh &
+    /src/memCheck.sh &
     break
   fi
   sleep 1
