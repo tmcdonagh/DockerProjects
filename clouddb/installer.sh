@@ -5,6 +5,6 @@ docker run \
   -e MYSQL_ROOT_PASSWORD=test \
   -p 2162:3306 \
   -d clouddb \
-  #-v ~/clouddb_data:/var/lib/mysql
+  #-v /home/tom/clouddb_data:/var/lib/mysql \
   #--restart=always \
 
