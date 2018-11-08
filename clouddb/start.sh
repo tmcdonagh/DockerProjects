@@ -7,7 +7,6 @@ do
     # Exists
     if [ -d /var/lib/mysql/clouddb ]
     then
-      echo "something"
       # Exists
     else
       mysql -ptest < /src/main.sql
