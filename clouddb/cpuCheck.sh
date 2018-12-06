@@ -24,7 +24,7 @@ do
   # Sends cpu percentage to mysql database
   time=$(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")
   echo "INSERT INTO cpu (perc, time) VALUES ('$DIFF_USAGE','$time')" | mysql -uroot -ptest clouddb
-  echo "DELETE FROM cpu WHERE ID NOT IN ( SELECT ID FROM ( SELECT ID FROM cpu ORDER BY ID DESC LIMIT 100 ) del );" | mysql -ptest clouddb
+  echo "DELETE FROM cpu WHERE ID NOT IN ( SELECT ID FROM ( SELECT ID FROM cpu ORDER BY ID DESC LIMIT 50 ) del );" | mysql -ptest clouddb
 
   # Remember the total and idle CPU times for the next check.
   PREV_TOTAL="$TOTAL"
