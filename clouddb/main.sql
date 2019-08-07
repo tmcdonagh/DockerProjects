@@ -6,7 +6,7 @@ CREATE DATABASE clouddb;
 USE clouddb;
 
 CREATE TABLE logs(
-  ID int NOT NULL Auto_INCREMENT,
+  ID int NOT NULL AUTO_INCREMENT,
   status VARCHAR(50) NOT NULL,
   time VARCHAR(50) NOT NULL
 );
