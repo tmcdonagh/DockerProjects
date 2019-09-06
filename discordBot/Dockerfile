@@ -4,7 +4,7 @@ WORKDIR /usr/src/discordBot
 COPY package*.json ./
 
 COPY . .
-RUN npm install discord.io winston --save
+RUN npm install discord.io winston ffmpeg opusscript --save
 RUN npm install https://github.com/woor/discord.io/tarball/gateway_v6
 #RUN apt update -qqy
 #RUN apt install -qqy vim

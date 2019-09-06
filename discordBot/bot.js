@@ -9,6 +9,40 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
+  var temp = message.toString();
+  temp = temp.toUpperCase();
+  if (message.author == client.user) {
+    return
+  }
+  if(temp.indexOf("INDEXTEST") != -1){
+    message.channel.send("worked");
+  }
+  if (message.content === '/join') {
+    // Only try to join the sender's voice channel if they are in one themselves
+    if (message.member.voiceChannel) {
+      message.member.voiceChannel.join()
+        .then(connection => { // Connection is an instance of VoiceConnection
+          message.reply('I have successfully connected to the channel!');
+        })
+        .catch(console.log);
+    } else {
+      message.reply('You need to join a voice channel first!');
+    }
+  }
+  if(
+    //temp.indexOf("RAM") != -1 ||
+    temp.indexOf("WAM") != -1){
+
+    message.channel.send("https://www.youtube.com/watch?v=_pVNvSuA2mM");
+  }
+  if(temp.indexOf("ON GET") != -1){
+    message.channel.send("<@&550373714471157820>");
+
+  }
+  if(temp.indexOf("NAZI") != -1){
+    message.channel.send("https://www.youtube.com/watch?v=ZWd4eAF0F5g");
+  }
+
   if (message.content.startsWith("ping")) {
     message.channel.send("pong!");
   }
@@ -50,30 +84,10 @@ client.on("message", (message) => {
 
   }
   if(
-    message.content.startsWith("icloud?") || 
-    message.content.startsWith("iCloud?") ||
-    message.content.startsWith("Icloud?") ||
-    message.content.startsWith("ICloud?")
-  ){
-    message.channel.send("https://i.reddit.it/2qxyuf2zz9g11.jpg");
-  }
-  if(
     message.content.startsWith("UNRELIABLE") || 
     message.content.startsWith("UNRELIABLE?")
   ){
     message.channel.send("https://www.youtube.com/watch?v=mRRwbhN4-sU");
-  }
-  if(
-    message.content.startsWith("WAM") ||
-    message.content.startsWith("wam") ||
-    message.content.startsWith("WAM?") ||
-    message.content.startsWith("wam?") ||
-    message.content.startsWith("Wam?") ||
-    message.content.startsWith("Wam") ||
-    message.content.startsWith("Dedodated wam") || 
-    message.content.startsWith("dedodated wam")
-  ){
-    message.channel.send("https://www.youtube.com/watch?v=Xgop6Udl1_c");
   }
   if(
     message.content.startsWith("What's Boneless Pizza?") || 
