@@ -1,4 +1,4 @@
 #!/bin/bash
-docker stop clouddb
-docker rm clouddb
-docker rmi clouddb
+sudo docker stop clouddb
+sudo docker rm clouddb
+sudo docker rmi clouddb
