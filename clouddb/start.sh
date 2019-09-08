@@ -15,6 +15,7 @@ do
     /src/connectionChecker.sh &
     /src/memCheck.sh &
     /src/cpuCheck.sh &
+    /src/dockerCheck.sh &
     break
   fi
   sleep 1

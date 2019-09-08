@@ -27,3 +27,13 @@ CREATE TABLE mem(
   time VARCHAR(50) NOT NULL,
   PRIMARY KEY (ID)
 );
+
+CREATE TABLE containers(
+  ID int NOT NULL AUTO_INCREMENT,
+  plexStatus VARCHAR(50) NOT NULL,
+  nextcloudStatus VARCHAR(50) NOT NULL,
+  grafanaStatus VARCHAR(50) NOT NULL,
+  time VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
+
