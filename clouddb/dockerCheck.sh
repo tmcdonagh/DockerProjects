@@ -1,4 +1,5 @@
 #!/bin/bash
+ip="10.0.0.63"
 while :
 do
   clouddbStatus="Online" # Both clouddb and web have to be working 
@@ -6,17 +7,17 @@ do
   plexStatus="Offline"
   nextcloudStatus="Offline"
   grafanaStatus="Offline"
-  nc -z -w1 mcdonaghcorp.com 32400
+  nc -z -w1 $ip 32400
   if [ $? ==  0 ]
   then
     plexStatus="Online"
   fi
-  nc -z -w1 mcdonaghcorp.com 220
+  nc -z -w1 $ip 220
   if [ $? ==  0 ]
   then
     nextcloudStatus="Online"
   fi
-  nc -z -w1 mcdonaghcorp.com 3000
+  nc -z -w1 $ip 3000
   if [ $? ==  0 ]
   then
     grafanaStatus="Online"

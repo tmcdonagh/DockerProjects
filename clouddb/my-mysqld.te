@@ -1,0 +1,15 @@
+
+module my-mysqld 1.0;
+
+require {
+	type user_home_t;
+	type container_t;
+	class dir { add_name create remove_name write };
+	class file { create lock open read rename setattr unlink write };
+	class sock_file { create unlink };
+}
+
+#============= container_t ==============
+allow container_t user_home_t:dir { add_name create remove_name write };
+allow container_t user_home_t:file { create lock open read rename setattr unlink write };
+allow container_t user_home_t:sock_file { create unlink };
