@@ -2,8 +2,7 @@
 
 Installs all website information from my other github repo
 
-Install order
+Install instructions:
 
-clouddb/./installer.sh
-websiteDeployment/./installer.sh
-clouddb/./networkCreator.sh
+Run ./installer.sh to install all 3 docker containers.
+Run ./destroyAll.sh to remove and delete the 3 containers.
