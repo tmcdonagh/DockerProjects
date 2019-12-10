@@ -12,6 +12,7 @@ if (( $totalSeconds > 60 ))
 then
   totalMinutes=$(($totalSeconds/60))
   remainderSeconds=$(($totalSeconds - (60*$totalMinutes)))
+  printf "\n" # Makes a gap for readability
   if [ $totalMinutes -eq 1 ]
   then
     echo "Script took $totalMinutes minute and $remainderSeconds seconds to complete"
