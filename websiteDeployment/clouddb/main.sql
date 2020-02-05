@@ -37,3 +37,9 @@ CREATE TABLE containers(
   PRIMARY KEY (ID)
 );
 
+CREATE TABLE uptime(
+  ID int NOT NULL AUTO_INCREMENT,
+  uptime VARCHAR(50) NOT NULL,
+  dateStamp VARCHAR(50) NOT NULL,
+  PRIMARY KEY (ID)
+);
