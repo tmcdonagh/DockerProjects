@@ -1,6 +1,6 @@
 # Website Overview
 
-Installs all website information from my other github repo
+Installs all website information from [my other github repo](https://github.com/tmcdonagh/WebsiteOverview)
 
 Install instructions:
 
