@@ -6,9 +6,7 @@ do
   memAvailable=$(cat /proc/meminfo | grep "MemAvailable" | awk -F: '{ print $2 }')
   memTotal=$(cat /proc/meminfo | grep "MemTotal" | awk -F: '{ print $2 }')
   time=$(TZ='America/Chicago' date +"%a %b %d %I:%M:%S %p")
-  firstUptime=$(uptime | awk '{print $3,$4}' | sed 's/,//')
-  secondUptime=$(uptime -p | awk '{print $2,$3,$4,$5,$6,$7,$8,$9}')
-  uptime="$firstUptime or $secondUptime"
+  uptime=$(uptime -p | awk '{print $2,$3,$4,$5,$6,$7,$8,$9}')
 
 
   # Sends data to mysql db
