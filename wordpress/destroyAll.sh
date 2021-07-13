@@ -2,13 +2,13 @@
 
 START=$(date +%s) # Sets initial time for time calc
 
-sudo docker stop wordpress
-sudo docker rm wordpress
-sudo docker rmi wordpress
+sudo docker stop webwordpress
+sudo docker rm webwordpress
+sudo docker rmi webwordpress
 
-sudo docker stop db-wordpress
-sudo docker rm db-wordpress
-sudo docker rmi db-wordpress
+sudo docker stop dbwordpress
+sudo docker rm dbwordpress
+sudo docker rmi dbwordpress
 
 # Start time calc
 END=$(date +%s)

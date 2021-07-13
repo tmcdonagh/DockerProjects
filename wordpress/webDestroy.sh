@@ -1,3 +1,3 @@
-sudo docker stop web-wordpress
-sudo docker rm web-wordpress
-sudo docker rmi web-wordpress
+sudo docker stop webWordpress
+sudo docker rm webWordpress
+sudo docker rmi webWordpress

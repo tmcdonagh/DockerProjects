@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo docker build -t web-wordpress .
+sudo docker build -t webwordpress .
 port=80
-sudo docker run --name=web-wordpress --restart=always -d -p $port:80 web-wordpress
+sudo docker run --name=webwordpress --restart=always -d -p $port:80 webwordpress

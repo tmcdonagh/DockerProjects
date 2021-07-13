@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo docker stop db-wordpress
-sudo docker rm db-wordpress
-sudo docker rmi db-wordpress
+sudo docker stop dbWordpress
+sudo docker rm dbWordpress
+sudo docker rmi dbWordpress
