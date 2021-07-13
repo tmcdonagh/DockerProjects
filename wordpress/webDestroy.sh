@@ -1,3 +1,3 @@
-sudo docker stop wordpress
-sudo docker rm wordpress
-sudo docker rmi wordpress
+sudo docker stop web-wordpress
+sudo docker rm web-wordpress
+sudo docker rmi web-wordpress

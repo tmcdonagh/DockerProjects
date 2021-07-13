@@ -5,7 +5,7 @@ do
   if [ $? -eq 0 ]
   then
     # Exists
-    if [ -d /var/lib/mysql/clouddb ]
+    if [ -d /var/lib/mysql/db-wordpress ]
     then
       echo "Exists"
       # Exists

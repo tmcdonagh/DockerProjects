@@ -1,4 +1,4 @@
 #!/bin/bash
-sudo docker stop clouddb
-sudo docker rm clouddb
-sudo docker rmi clouddb
+sudo docker stop db-wordpress
+sudo docker rm db-wordpress
+sudo docker rmi db-wordpress
