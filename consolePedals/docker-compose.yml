@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  reverse-proxy:
+    image: nginx:1.17.10
+    container_name: reverse_proxy
+    depends_on:
+      - console-pedals
+    volumes:
+      - ./reverse_proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+  console-pedals:
+    image: console-pedals
+    container_name: console-pedals
+    build:
+      context: ./console-pedals
+    ports:
+      - 8080:80
+    restart: on-failure
